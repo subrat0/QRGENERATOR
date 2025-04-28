@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>QRVerse - Menu</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: linear-gradient(135deg, #8fcdf4, #f3f2f2);
+      padding: 20px;
+      color: #2d2d2d;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding-bottom: 120px; /* Footer ke liye space */
+    }
+
+    h1.title {
+      font-size: 3.5rem;
+      font-weight: 900;
+      text-align: center;
+      color: #1a3c34;
+      margin-bottom: 40px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      animation: fadeInDown 1s ease-in-out;
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .menu-container {
+      max-width: 90vw;
+      width: 100%;
+      background: linear-gradient(145deg, #ffffff, #eef0f2);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      position: relative;
+      overflow: hidden;
+      animation: slideIn 0.8s ease-out;
+      border: 2px solid #d4a373;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .menu-container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .menu-container h2 {
+      font-size: 2.6rem;
+      text-align: center;
+      color: #1a3c34;
+      background: linear-gradient(135deg, #d4a373, #b08968);
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 30px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 1s ease-in;
+    }
+
+    .live-pre, .aboutus, .socialmeadia {
+      background: #fff;
+      border-radius: 15px;
+      padding: 25px;
+      margin: 20px 0;
+      border-left: 5px solid #d4a373;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      animation: fadeInUp 1s ease-in;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .live-pre h3, .aboutus h3, .socialmeadia h3 {
+      font-size: 2.4rem;
+      color: #1a3c34;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      text-transform: capitalize;
+    }
+
+    #menuContent {
+      padding: 20px;
+      border-radius: 10px;
+      background: #f8f1e9;
+      border: 1px solid #d4a373;
+    }
+
+    #menuContent strong {
+      font-size: 1.8rem;
+      color: #1a3c34;
+      display: block;
+      margin: 15px 0 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    #menuContent ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    #menuContent ul li {
+      font-size: 2.4rem;
+      padding: 10px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px dashed #d4a373;
+      transition: background 0.3s ease;
+    }
+
+    #menuContent ul li:hover {
+      background: #f5e9d4;
+      border-radius: 5px;
+    }
+
+    #menuContent ul li::before {
+      content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23d4a373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/><path d="M12 16c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/><path d="M12 22v-6"/></svg>');
+      margin-right: 10px;
+    }
+
+    .aboutus p {
+      font-size: 1.9rem;
+      line-height: 1.6;
+      color: #2d2d2d;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    .socialmeadia a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #1a3c34;
+      text-decoration: none;
+      font-size: 1.9rem;
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 8px;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .socialmeadia a:hover {
+      background: #f5e9d4;
+      transform: translateX(5px);
+    }
+
+    .socialmeadia a::before {
+      content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="%23d4a373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>');
+    }
+
+    .error-message {
+      text-align: center;
+      color: #b71c1c;
+      font-size: 1.5rem;
+      margin-top: 30px;
+      font-family: 'Roboto', sans-serif;
+      animation: shake 0.5s ease;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      75% { transform: translateX(10px); }
+    }
+
+    .create-menu-btn {
+      display: block;
+      margin: 30px auto 0; /* Last mein, footer ke upar */
+      padding: 15px 30px;
+      font-size: 2.8rem;
+      color: #fff;
+      background: linear-gradient(135deg, #d4a373, #b08968);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      animation: bounce 5s infinite; /* Bounce animation */
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .create-menu-btn:hover {
+      background: linear-gradient(135deg, #b08968, #d4a373);
+      transform: scale(1.05); /* Thoda bada hoga hover pe */
+    }
+
+    @media (max-width: 600px) {
+      .menu-container { padding: 20px; }
+      h1.title { font-size: 2.5rem; }
+      .menu-container h2 { font-size: 2rem; padding: 15px; }
+      .live-pre h3, .aboutus h3, .socialmeadia h3 { font-size: 1.5rem; }
+      #menuContent ul li { font-size: 1rem; }
+      .create-menu-btn { font-size: 1.5rem; padding: 10px 20px; }
+    }
+
+    .footer {
+      width: 100%;
+      text-align: center;
+      padding: 20px 0;
+      font-family: 'Roboto', sans-serif;
+      color: #2d2d2d;
+      font-size: 2rem;
+      background: linear-gradient(135deg, #ffffff, #eef0f2);
+      border-top: 2px solid #d4a373;
+      border-radius: 10px;
+      box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
+      animation: fadeInUp 1s ease-in;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      z-index: 1000;
+    }
+
+    .footer p { margin: 5px 0; }
+    .footer .brand { font-weight: 700; color: #d4a373; text-transform: uppercase; letter-spacing: 1px; }
+    .footer .creator { font-weight: 500; color: #1a3c34; }
+    .footer:hover { transform: translateY(-3px); box-shadow: 0 -8px 20px rgba(0, 0, 0, 0.15); transition: all 0.3s ease; }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <h1 class="title">QRVerse</h1>
+  <div class="menu-container">
+    <h2 id="restaurantName">Restaurant Name</h2>
+    <div class="live-pre">
+      <h3>
+        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#d4a373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 10px;">
+          <path d="M8 2v4" />
+          <path d="M16 2v4" />
+          <path d="M3 10h18" />
+          <path d="M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6z" />
+        </svg>
+        Menu Card
+      </h3>
+      <div id="menuContent" class="preMenu"></div>
+    </div>
+    <div class="aboutus">
+      <h3>
+        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#d4a373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 10px;">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M12 16v.01" />
+          <path d="M12 8v4" />
+        </svg>
+        About Us
+      </h3>
+      <p id="aboutContent">About section...</p>
+    </div>
+    <div class="socialmeadia">
+      <h3>
+        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#d4a373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 10px;">
+          <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+        </svg>
+        Social Media
+      </h3>
+      <div id="socialLinks"></div>
+    </div>
+    <!-- Create Your Menu Button with Email Functionality -->
+    <button class="create-menu-btn" onclick="sendEmail()">Create Your Menu</button>
+  </div>
+
+  <div id="errorMessage" class="error-message" style="display: none;"></div>
+
+  <footer class="footer">
+    <p>Powered by <span class="brand">QRVerse</span></p>
+    <p>Created by <span class="creator">Subrat Ghosh</span></p>
+  </footer>
+  <script>
+    function renderMenu() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const encodedData = urlParams.get("menu");
+
+      if (!encodedData) {
+        showError("No menu data found. Please scan a valid QR code.");
+        return;
+      }
+
+      try {
+        const menuPayload = JSON.parse(atob(decodeURIComponent(encodedData)));
+
+        document.getElementById("restaurantName").textContent = menuPayload.restaurantName || "Restaurant Name";
+
+        const menuContent = document.getElementById("menuContent");
+        menuContent.innerHTML = "";
+        menuPayload.menu[0].subheadings.forEach(sub => {
+          if (!sub.name.trim()) return;
+          const strong = document.createElement("strong");
+          strong.textContent = sub.name;
+          menuContent.appendChild(strong);
+          const ul = document.createElement("ul");
+          sub.items.forEach(item => {
+            if (!item.name.trim()) return;
+            const li = document.createElement("li");
+            li.textContent = `${item.name} - ₹${item.price}`;
+            ul.appendChild(li);
+          });
+          menuContent.appendChild(ul);
+        });
+
+        document.getElementById("aboutContent").textContent = menuPayload.about || "About section...";
+
+        const socialLinksDiv = document.getElementById("socialLinks");
+        socialLinksDiv.innerHTML = "";
+        menuPayload.socialLinks.forEach(link => {
+          const a = document.createElement("a");
+          a.href = link.url;
+          a.target = "_blank";
+          a.textContent = link.title;
+          socialLinksDiv.appendChild(a);
+        });
+      } catch (error) {
+        console.error("Error decoding menu data:", error);
+        showError("Invalid QR code data. Please try again.");
+      }
+    }
+
+    function showError(message) {
+      const errorDiv = document.getElementById("errorMessage");
+      errorDiv.textContent = message;
+      errorDiv.style.display = "block";
+      document.querySelector(".menu-container").style.display = "none";
+    }
+
+    function sendEmail() {
+      const subject = encodeURIComponent("I want To Create Menu Card");
+      const body = encodeURIComponent("Phone No: ");
+      const mailtoLink = `mailto:subratg30@gmail.com?subject=${subject}&body=${body}`;
+      window.location.href = mailtoLink;
+    }
+
+    window.onload = renderMenu;
+  </script>
+</body>
+
+</html>

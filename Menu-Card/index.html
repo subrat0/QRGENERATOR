@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>QRVerse - Menu QR Generator</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #e0eafc, #cfdef3);
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+
+    h1.title {
+      font-size: 3rem;
+      font-weight: 800;
+      text-align: center;
+      color: #1f3c6c;
+      margin-bottom: 30px;
+      animation: fadeInDown 1s ease-in-out;
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .form,
+    .preview {
+      flex: 1 1 48%;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      overflow: auto;
+      min-height: 400px;
+    }
+
+    .form:hover,
+    .preview:hover {
+      transform: translateY(-5px);
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 1.8rem;
+      color: #1e3a8a;
+      margin-bottom: 20px;
+    }
+
+    input,
+    textarea,
+    button {
+      width: 100%;
+      padding: 12px 15px;
+      margin: 10px 0;
+      font-size: 16px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #1e3a8a;
+      box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.2);
+    }
+
+    button {
+      background: linear-gradient(135deg, #1e3a8a, #2563eb);
+      color: white;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: linear-gradient(135deg, #2563eb, #1e3a8a);
+    }
+
+    .Generate-Qr {
+      margin-top: 20px;
+      border-radius: 30px;
+      font-size: 1.1rem;
+    }
+
+    .menu-section,
+    .socialmeadia,
+    .live-pre {
+      background-color: #f9fbfd;
+      border-radius: 16px;
+      padding: 15px 20px;
+      margin-top: 20px;
+      border-left: 5px solid #2563eb;
+    }
+
+    .aboutus {
+      background-color: #f9fbfd;
+      border-radius: 16px;
+      padding: 15px 20px;
+      margin-top: 20px;
+      border-left: 5px solid #2563eb;
+      word-wrap: break-word;
+    }
+
+    #prevAbout {
+      overflow-wrap: break-word;
+    }
+
+    .subheading {
+      margin-top: 10px;
+      padding: 15px;
+      background: #eef4ff;
+      border-radius: 10px;
+      border-left: 4px solid #4f46e5;
+    }
+
+    .item-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .item-row input {
+      flex: 1;
+    }
+
+    .live-head {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .circle-live {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background-color: red;
+      animation: pulse 1.5s infinite;
+      box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+      }
+
+      70% {
+        transform: scale(1.2);
+        box-shadow: 0 0 0 15px rgba(255, 0, 0, 0);
+      }
+
+      100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+      }
+    }
+
+    .preMenu strong {
+      display: block;
+      margin-top: 12px;
+      font-size: 1.1rem;
+      color: #1e3a8a;
+    }
+
+    .preMenu ul {
+      list-style: none;
+      padding-left: 0;
+      margin: 5px 0 15px;
+    }
+
+    .preMenu ul li {
+      padding: 4px 0;
+      font-size: 0.95rem;
+    }
+
+    #qrcode {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .social-media-container {
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #f0f4f8;
+      border-radius: 12px;
+    }
+
+    .input-set {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .sub-can {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+
+    .sub-can button {
+      padding: 10px 14px;
+      font-size: 0.9rem;
+    }
+
+    #links a {
+      display: block;
+      color: #1e40af;
+      text-decoration: none;
+      margin: 8px 0;
+      font-weight: 500;
+    }
+
+    #links a:hover {
+      text-decoration: underline;
+    }
+
+    #qrModal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+
+    .modal-content {
+      background: #fff;
+      padding: 20px;
+      border-radius: 20px;
+      max-width: 90vw;
+      max-height: 90vh;
+      overflow: auto;
+      text-align: center;
+    }
+
+    #previewImage {
+      max-width: 100%;
+      border-radius: 12px;
+      margin: 20px 0;
+      display: none;
+    }
+
+    #QRCODEIMAGE {
+      max-width: 300px;
+      margin: 20px 0;
+    }
+
+    #closeModal {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background: #2563eb;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <h1 class="title">QRVerse</h1>
+  <div class="wrapper">
+    <div class="form">
+      <h2>Build Your Menu</h2>
+      <input type="text" id="restaurantName" placeholder="Restaurant Name" oninput="updatePreview()" />
+      <div id="menuArea" class="menu-section">
+        <div id="subArea0"></div>
+        <button onclick="addSubheading(0)">+ Add Subheading</button>
+      </div>
+
+      <textarea class="about" id="about" placeholder="About Your Restaurant" oninput="updatePreview()"></textarea>
+
+      <div class="social-media-container">
+        <h3>Add Social Media Link</h3>
+        <button onclick="addInputSet()">+ Add Link</button>
+        <div id="inputWrapper"></div>
+      </div>
+
+      <button class="Generate-Qr" onclick="generateQR()">Generate QR Code</button>
+      <div id="qrcode"></div>
+    </div>
+
+    <div class="preview">
+      <div class="live-head">
+        <div class="circle-live"></div>
+        <h2>Live Preview</h2>
+      </div>
+      <div class="preview-img">
+        <div class="live-pre">
+          <h3 id="prevRestaurantName">Restaurant Name</h3>
+          <div id="prevMenu" class="preMenu"></div>
+        </div>
+        <div class="aboutus">
+          <h3>About Us</h3>
+          <p id="prevAbout">About section...</p>
+        </div>
+        <div class="socialmeadia">
+          <h3>Social Media Handles</h3>
+          <div id="links"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="qrModal">
+    <div class="modal-content">
+      <h2>QR Code</h2>
+      <img id="previewImage" />
+      <div id="modalQrCode">
+        <img id="QRCODEIMAGE" src="" alt="QR Code">
+      </div>
+      <button id="closeModal">Close</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <script>
+    let menuData = [{ subheadings: [] }];
+    let socialLinks = [];
+
+    function updatePreview() {
+      document.getElementById("prevRestaurantName").innerText = document.getElementById("restaurantName").value || "Restaurant Name";
+      document.getElementById("prevAbout").innerText = document.getElementById("about").value || "About section...";
+      renderPreviewMenu();
+      updateSocialLinksPreview();
+    }
+
+    function addSubheading(sectionIndex) {
+      const subIndex = menuData[sectionIndex].subheadings.length;
+      menuData[sectionIndex].subheadings.push({ name: "", items: [], collapsed: false });
+
+      const sub = document.createElement("div");
+      sub.className = "subheading";
+      const subID = `items${sectionIndex}_${subIndex}`;
+      sub.innerHTML = `
+        <input type="text" placeholder="Subheading Name" oninput="menuData[${sectionIndex}].subheadings[${subIndex}].name=this.value; updatePreview();" />
+        <div id="${subID}" class="items-container"></div>
+        <button onclick="addItem(${sectionIndex}, ${subIndex})">+ Add Item</button>
+        <button onclick="toggleSubheading(${sectionIndex}, ${subIndex}, this)">Save</button>
+      `;
+      document.getElementById(`subArea${sectionIndex}`).appendChild(sub);
+    }
+
+    function addItem(sectionIndex, subIndex) {
+      const containerId = `items${sectionIndex}_${subIndex}`;
+      const container = document.getElementById(containerId);
+      const itemIndex = menuData[sectionIndex].subheadings[subIndex].items.length;
+
+      menuData[sectionIndex].subheadings[subIndex].items.push({ name: "", price: "" });
+
+      const itemRow = document.createElement("div");
+      itemRow.className = "item-row";
+      itemRow.innerHTML = `
+        <input type="text" placeholder="Item Name"
+          oninput="menuData[${sectionIndex}].subheadings[${subIndex}].items[${itemIndex}].name=this.value; updatePreview();" />
+        <input type="number" placeholder="Price"
+          oninput="menuData[${sectionIndex}].subheadings[${subIndex}].items[${itemIndex}].price=this.value; updatePreview();" />
+      `;
+      container.appendChild(itemRow);
+    }
+
+    function toggleSubheading(sectionIndex, subIndex, btn) {
+      const data = menuData[sectionIndex].subheadings[subIndex];
+      const container = document.getElementById(`items${sectionIndex}_${subIndex}`);
+
+      data.collapsed = !data.collapsed;
+      container.style.display = data.collapsed ? "none" : "block";
+      btn.textContent = data.collapsed ? "Show Items" : "Save Subheading";
+    }
+
+    function renderPreviewMenu() {
+      const preview = document.getElementById("prevMenu");
+      preview.innerHTML = "";
+
+      menuData[0].subheadings.forEach(sub => {
+        if (!sub.name.trim()) return;
+
+        const strong = document.createElement("strong");
+        strong.textContent = sub.name;
+        preview.appendChild(strong);
+
+        const ul = document.createElement("ul");
+        sub.items.forEach(i => {
+          if (!i.name.trim()) return;
+          const li = document.createElement("li");
+          li.textContent = `${i.name} - ₹${i.price}`;
+          ul.appendChild(li);
+        });
+        preview.appendChild(ul);
+      });
+    }
+
+    function addInputSet() {
+      const wrapper = document.getElementById('inputWrapper');
+
+      const div = document.createElement('div');
+      div.classList.add('input-set');
+      div.innerHTML = `
+        <input type="text" placeholder="Enter URL (e.g., https://instagram.com/yourpage)" class="urlInput">
+        <input type="text" placeholder="Enter Title (e.g., Instagram)" class="titleInput">
+        <div class="sub-can">
+          <button onclick="addLink(this)">Submit</button>
+          <button onclick="cancel(this)">Cancel</button>
+        </div>
+      `;
+      wrapper.appendChild(div);
+    }
+
+    function cancel(button) {
+      const inputSet = button.closest('.input-set');
+      if (inputSet) inputSet.remove();
+    }
+
+    function addLink(button) {
+      const inputSet = button.closest('.input-set');
+      const urlInput = inputSet.querySelector('.urlInput');
+      const titleInput = inputSet.querySelector('.titleInput');
+
+      const url = urlInput.value.trim();
+      const title = titleInput.value.trim();
+
+      if (!url || !title) {
+        alert("Please enter both URL and Title");
+        return;
+      }
+
+      const finalUrl = url.startsWith('http') ? url : 'https://' + url;
+      socialLinks.push({ url: finalUrl, title });
+      updateSocialLinksPreview();
+      inputSet.remove();
+    }
+
+    function updateSocialLinksPreview() {
+      const linksDiv = document.getElementById('links');
+      linksDiv.innerHTML = '';
+      socialLinks.forEach(link => {
+        const a = document.createElement('a');
+        a.href = link.url;
+        a.target = "_blank";
+        a.textContent = link.title;
+        linksDiv.appendChild(a);
+      });
+    }
+
+    document.getElementById('closeModal').addEventListener('click', () => {
+      document.getElementById('qrModal').style.display = 'none';
+    });
+
+    async function generateQR() {
+      const qrimg = document.getElementById('QRCODEIMAGE');
+      const qrApiBase = 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=';
+
+      try {
+        // [CHANGED] Collect and encode menu data
+        const menuPayload = {
+          restaurantName: document.getElementById("restaurantName").value || "Restaurant Name",
+          menu: menuData,
+          about: document.getElementById("about").value || "About section...",
+          socialLinks: socialLinks
+        };
+
+        // Encode data as Base64 to make it URL-safe
+        const encodedData = btoa(JSON.stringify(menuPayload));
+
+        // Create URL with encoded data as query parameter
+        const dataPageUrl = `${window.location.origin}/Data/index.html?menu=${encodeURIComponent(encodedData)}`;
+        const qrContent = encodeURIComponent(dataPageUrl);
+        const qrUrl = qrApiBase + qrContent;
+
+        // Set QR image src
+        qrimg.setAttribute('src', qrUrl);
+
+        // [CHANGED] Remove localStorage usage since we’re encoding data in URL
+        // Show the modal
+        document.getElementById('qrModal').style.display = 'flex';
+      } catch (error) {
+        console.error('Error generating QR code:', error);
+        alert('Failed to generate QR code. Please try again.');
+      }
+    }
+  </script>
+</body>
+
+</html>

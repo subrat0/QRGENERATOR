@@ -1,0 +1,163 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  body {
+    background: #f3f4f6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
+
+  h1.title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1f3c6c;
+    margin-bottom: 2rem;
+    text-align: center;
+    animation: fadeInDown 0.6s ease-out;
+  }
+
+  .Qr-generate {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  .Qr-generate:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  .Qr-generate h1 {
+    font-size: 1.5rem;
+    text-align: center;
+    color: #1f3c6c;
+  }
+
+  input,
+  button {
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+  }
+
+  input {
+    width: 100%;
+    border: 1px solid #ccc;
+    transition: border 0.3s ease;
+  }
+
+  input:focus {
+    border-color: #1f3c6c;
+  }
+
+  button {
+    background: #1f3c6c;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  button:hover {
+    background: #163057;
+  }
+
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+  }
+
+  .modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    text-align: center;
+    position: relative;
+    width: 300px;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    font-size: 1.2rem;
+    background: #eee;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  .close-btn:hover {
+    background: #ccc;
+  }
+
+  #qrCanvasWrapper {
+    margin: 20px 0;
+  }
+
+  @keyframes fadeIn {
+    from {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      transform: translateY(40px);
+      opacity: 0;
+    }
+
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeInDown {
+    from {
+      transform: translateY(-30px);
+      opacity: 0;
+    }
+
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
