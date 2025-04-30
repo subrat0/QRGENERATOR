@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - TheQR-Verse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(45deg, #1a2634, #2c3e50);
+            color: #fff;
+            animation: fadeIn 1.2s ease-in;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
+            z-index: 0;
+        }
+
+        header h1 {
+            font-size: 3.2em;
+            font-weight: 700;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
+            animation: slideInLeft 1s ease-out;
+        }
+
+        header p {
+            font-size: 1.4em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+            animation: slideInRight 1s ease-out;
+        }
+
+        .features, .contact, .about-services {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .features h2, .contact h2, .about-services h2 {
+            font-size: 2.5em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #1a2634;
+            animation: slideDown 1s ease-out;
+        }
+
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: #fff;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(135deg, #f9f9f9, #ffffff);
+        }
+
+        .feature-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .feature-card h3 {
+            font-size: 1.6em;
+            color: #e74c3c;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            font-size: 1em;
+            color: #7f8c8d;
+            margin-bottom: 15px;
+        }
+
+        .feature-card .pricing {
+            font-size: 0.95em;
+            color: #2c3e50;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .feature-card .button-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .feature-card .btn {
+            flex: 1;
+            padding: 10px 15px;
+            font-size: 0.95em;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card .btn-contact {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.4);
+        }
+
+        .feature-card .btn-contact:hover {
+            background: linear-gradient(45deg, #2980b9, #3498db);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(52, 152, 219, 0.6);
+        }
+
+        .feature-card .btn-demo {
+            background: black;
+            box-shadow: 0 4px 10px rgba(24, 23, 23, 0.4);
+            color: whitesmoke;
+        }
+
+        .feature-card .btn-demo:hover {
+            background: linear-gradient(45deg, #141414, #303030);
+            color: whitesmoke;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(22, 21, 21, 0.6);
+        }
+
+        .visual-container {
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .visual-container img, .visual-container video {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            animation: zoomIn 1.5s ease-out;
+        }
+
+        .about-services .service-item {
+            margin-bottom: 30px;
+        }
+
+        .about-services h3 {
+            font-size: 1.8em;
+            color: #e74c3c;
+            margin-bottom: 10px;
+        }
+
+        .about-services p {
+            font-size: 1.1em;
+            color: #7f8c8d;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: #fff;
+            padding: 14px 35px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+        }
+
+        .btn:hover {
+            background: linear-gradient(45deg, #474646, #e74c3c);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(231, 76, 60, 0.6);
+        }
+
+        .contact p {
+            margin-bottom: 25px;
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(45deg, #1a2634, #2c3e50);
+            color: #fff;
+            position: relative;
+            width: 100%;
+            animation: fadeIn 1.5s ease-in;
+        }
+
+        footer p {
+            font-size: 1em;
+            opacity: 0.9;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes slideInLeft {
+            from { transform: translateX(-50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.2em;
+            }
+            .features h2, .contact h2, .about-services h2 {
+                font-size: 2em;
+            }
+            .feature-card {
+                padding: 20px;
+            }
+            .feature-card .button-group {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .feature-card .btn {
+                padding: 12px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .feature-card {
+                width: 100%;
+            }
+            header h1 {
+                font-size: 1.8em;
+            }
+            header p {
+                font-size: 1em;
+            }
+            .btn {
+                padding: 12px 30px;
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>TheQR-Verse</h1>
+        <p>Empowering Businesses with Seamless QR Technology</p>
+    </header>
+
+    <section class="features">
+        <h2>Menu to QR Services</h2>
+        <div class="visual-container">
+            <img src="image/qrshow.jpg" alt="Visual Menu to QR">
+        </div>
+        <div class="feature-list">
+            <div class="feature-card">
+                <img src="image/proqr.jpg" alt="Professional QR Menu">
+                <h3>Professional Menu to QR</h3>
+                <p>Elevate your restaurant or hotel with premium QR code menus designed for sophistication.</p>
+                <div class="pricing">
+                    <p>One-time Design: ₹3000<br>Free for 6 months, then ₹115/month</p>
+                </div>
+                <div class="button-group">
+                    <button class="btn btn-contact" onclick="contactUs()">Get Started</button>
+                    <button class="btn btn-demo" onclick="window.location.href='ProfessionalDesign/index.html'">See Demo Website</button>
+                </div>
+            </div>
+            <div class="feature-card">
+                <img src="image/simpleqr.png" alt="Simple QR Menu">
+                <h3>Simple Menu to QR</h3>
+                <p>Cost-effective QR code menus with clean, functional designs for any business.</p>
+                <div class="pricing">
+                    <p>Total Making Charge: ₹2500<br>Free for 6 months, then ₹99/month</p>
+                </div>
+                <div class="button-group">
+                    <button class="btn btn-contact" onclick="contactUs()">Get Started</button>
+                    <button class="btn btn-demo" onclick="window.location.href='SimpleDesign/index.html'">See Demo Website</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-services">
+        <h2>About Our Services</h2>
+        <div class="service-item">
+            <h3>QR Codes for Restaurants & Hotels</h3>
+            <p>High-quality QR codes at the lowest cost to enhance your business operations.</p>
+        </div>
+        <div class="service-item">
+            <h3>Easy Contact Process</h3>
+            <p>Click "Contact Us" below, send your details via email, and we’ll reach you ASAP!</p>
+        </div>
+    </section>
+
+    <section class="contact">
+        <h2>Contact Us</h2>
+        <p>Share your contact details to get started with our QR code services.</p>
+        <button id="contactBtn" class="btn">Email Us</button>
+    </section>
+
+    <footer>
+        <p>© 2025 TheQR-Verse. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function contactUs() {
+            const subject = encodeURIComponent("Contact Request - QR Code Services");
+            const body = encodeURIComponent("Hello,\n\nI am interested in your QR code services. Please find my details below:\n\nName: [Your Name]\nContact Number: [Your Number]\nEmail: [Your Email]\n\nLooking forward to your response!\n\nBest,\n[Your Name]");
+            window.location.href = `mailto:subratg30@gmail.com?subject=${subject}&body=${body}`;
+        }
+
+        document.getElementById('contactBtn').addEventListener('click', function() {
+            contactUs();
+        });
+    </script>
+</body>
+</html>

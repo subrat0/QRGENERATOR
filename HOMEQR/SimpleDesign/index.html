@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Menu Card - Royal Dining</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #2c2c2c;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(45deg, #2c3e50, #34495e);
+            color: #fff;
+            animation: fadeInHeader 1s ease-in-out;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            animation: slideInLeft 1s ease-out;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+            animation: slideInRight 1s ease-out;
+        }
+
+        .selected-items-card {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            animation: slideDown 0.5s ease-out;
+            display: none;
+        }
+
+        .selected-items-card h2 {
+            font-size: 1.8em;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .selected-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            background: #f9f9f9;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .selected-item .details {
+            flex-grow: 1;
+        }
+
+        .selected-item .details h4 {
+            font-size: 1em;
+            color: #2c2c2c;
+            font-weight: 400;
+        }
+
+        .selected-item .details p {
+            font-size: 0.85em;
+            color: #7f8c8d;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            margin-left: 15px;
+        }
+
+        .quantity-control button {
+            background: #e74c3c;
+            color: #fff;
+            border: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+            font-size: 1em;
+            margin: 0 5px;
+        }
+
+        .quantity-control button:hover {
+            background: #c0392b;
+            transform: scale(1.1);
+        }
+
+        .quantity-control span {
+            font-size: 1em;
+            color: #2c2c2c;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .total {
+            text-align: right;
+            margin-top: 15px;
+            font-size: 1.1em;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+        .menu-card {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 25px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            animation: slideUp 1.2s ease-out;
+        }
+
+        .menu-card h2 {
+            font-size: 2em;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            text-align: center;
+            animation: fadeInText 1s ease-in;
+        }
+
+        .menu-section {
+            margin-bottom: 30px;
+            padding: 15px;
+            background: #f7f7f7;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .menu-section h3 {
+            font-size: 1.5em;
+            color: #e74c3c;
+            margin-bottom: 15px;
+            text-align: center;
+            animation: slideInLeft 1s ease-out;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            transition: transform 0.3s ease, background 0.3s ease;
+            max-width: 600px;
+            margin: 0 auto 10px;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-3px);
+            background: #f0f0f0;
+        }
+
+        .menu-item .details {
+            flex-grow: 1;
+        }
+
+        .menu-item .details h4 {
+            font-size: 1em;
+            color: #2c2c2c;
+            font-weight: 400;
+        }
+
+        .menu-item .details p {
+            font-size: 0.85em;
+            color: #7f8c8d;
+        }
+
+        .plus-icon {
+            margin-left: 10px;
+            cursor: pointer;
+            transition: stroke 0.3s ease;
+        }
+
+        .plus-icon:hover {
+            stroke: #c0392b;
+        }
+
+        .about {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            text-align: center;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 1s ease-in;
+        }
+
+        .about h2 {
+            font-size: 1.8em;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .about p {
+            font-size: 1em;
+            color: #7f8c8d;
+            line-height: 1.8;
+        }
+
+        .social-media {
+            text-align: center;
+            margin: 30px 0;
+            animation: slideUp 1.5s ease-out;
+        }
+
+        .social-media h2 {
+            font-size: 1.6em;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .social-media a {
+            color: #e74c3c;
+            font-size: 1.2em;
+            margin: 0 10px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .social-media a:hover {
+            color: #c0392b;
+        }
+
+        .create-menu-btn {
+            text-align: center;
+            margin: 30px 0;
+            animation: bounceIn 1s ease-out;
+        }
+
+        .create-menu-btn button {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: #fff;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.3s ease, transform течь0.2s ease;
+            box-shadow: 0 4px 10px rgba(231, 76, 60, 0.4);
+        }
+
+        .create-menu-btn button:hover {
+            background: linear-gradient(45deg, #c0392b, #e74c3c);
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(231, 76, 60, 0.6);
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: linear-gradient(45deg, #2c3e50, #34495e);
+            color: #fff;
+            margin-top: 40px;
+            animation: fadeInFooter 1.5s ease-in-out;
+        }
+
+        footer p {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        /* Animations */
+        @keyframes fadeInHeader {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInText {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: scale(0.5); }
+            50% { transform: scale(1.1); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInFooter {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            header p {
+                font-size: 0.9em;
+            }
+
+            .selected-items-card {
+                margin: 10px;
+                padding: 15px;
+            }
+
+            .selected-items-card h2 {
+                font-size: 1.4em;
+            }
+
+            .selected-item {
+                padding: 8px;
+            }
+
+            .selected-item .details h4 {
+                font-size: 0.85em;
+            }
+
+            .selected-item .details p {
+                font-size: 0.7em;
+            }
+
+            .quantity-control button {
+                width: 20px;
+                height: 20px;
+                font-size: 0.9em;
+            }
+
+            .quantity-control span {
+                font-size: 0.9em;
+            }
+
+            .total {
+                font-size: 1em;
+            }
+
+            .menu-card {
+                margin: 10px;
+                padding: 15px;
+            }
+
+            .menu-card h2 {
+                font-size: 1.6em;
+            }
+
+            .menu-section {
+                padding: 10px;
+            }
+
+            .menu-section h3 {
+                font-size: 1.3em;
+            }
+
+            .menu-item {
+                padding: 10px;
+            }
+
+            .menu-item .details h4 {
+                font-size: 0.9em;
+            }
+
+            .menu-item .details p {
+                font-size: 0.75em;
+            }
+
+            .plus-icon {
+                width: 15px;
+                height: 15px;
+            }
+
+            .about {
+                margin: 20px;
+                padding: 15px;
+            }
+
+            .about h2 {
+                font-size: 1.4em;
+            }
+
+            .about p {
+                font-size: 0.85em;
+            }
+
+            .social-media h2 {
+                font-size: 1.3em;
+            }
+
+            .social-media a {
+                font-size: 1em;
+                margin: 0 8px;
+            }
+
+            .create-menu-btn button {
+                padding: 10px 20px;
+                font-size: 0.85em;
+            }
+
+            footer {
+                padding: 10px;
+                font-size: 0.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Royal Dining</h1>
+        <p>Simple & Elegant Dining Experience</p>
+    </header>
+
+    <section class="selected-items-card" id="selectedItemsCard">
+        <h2>Selected Items</h2>
+        <div id="selectedItemsContainer"></div>
+        <div class="total" id="total">Total: $0.00</div>
+    </section>
+
+    <section class="menu-card">
+        <h2>Menu</h2>
+        <div class="menu-section">
+            <h3>Paneer Delights</h3>
+            <div class="menu-item" onclick="addSelectedItem(this)">
+                <div class="details">
+                    <h4>Sahi Paneer</h4>
+                    <p>Creamy paneer in tomato gravy - $8.99</p>
+                </div>
+                <svg class="plus-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e74c3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </div>
+            <div class="menu-item" onclick="addSelectedItem(this)">
+                <div class="details">
+                    <h4>Malai Paneer</h4>
+                    <p>Smooth paneer with creamy sauce - $7.99</p>
+                </div>
+                <svg class="plus-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e74c3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </div>
+            <div class="menu-item" onclick="addSelectedItem(this)">
+                <div class="details">
+                    <h4>Rasa Paneer</h4>
+                    <p>Spicy paneer with aromatic spices - $8.49</p>
+                </div>
+                <svg class="plus-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e74c3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </div>
+            <div class="menu-item" onclick="addSelectedItem(this)">
+                <div class="details">
+                    <h4>Paneer Tikka</h4>
+                    <p>Grilled paneer with spices - $9.99</p>
+                </div>
+                <svg class="plus-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e74c3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </div>
+            <div class="menu-item" onclick="addSelectedItem(this)">
+                <div class="details">
+                    <h4>Paneer Makhani</h4>
+                    <p>Paneer in buttery tomato sauce - $8.79</p>
+                </div>
+                <svg class="plus-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e74c3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </div>
+        </div>
+        <div class="menu-section">
+            <h3>Vegetable Curries</h3>
+            <div class="menu-item" onclick="addSelectedItem(this)">
+                <div class="details">
+                    <h4 - $6.99</p>
+                </div>
+                <svg class="plus-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e74c3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </div>
+            <div class="menu-item" onclick="addSelectedItem(this)">
+                <div class="details">
+                    <h4>Aloo Gobi</h4>
+                    <p>Potatoes and cauliflower curry - $6.49</p>
+                </div>
+                <svg class="plus-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e74c3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </div>
+            <div class="menu-item" onclick="addSelectedItem(this)">
+                <div class="details">
+                    <h4>Chana Masala</h4>
+                    <p>Spicy chickpea curry - $6.79</p>
+                </div>
+                <svg class="plus-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e74c3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </div>
+            <div class="menu-item" onclick="addSelectedItem(this)">
+                <div class="details">
+                    <h4>Bhindi Masala</h4>
+                    <p>Spiced okra curry - $6.99</p>
+                </div>
+                <svg class="plus-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e74c3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </div>
+        </div>
+        <div class="menu-section">
+            <h3>Rice & Breads</h3>
+            <div class="menu-item" onclick="addSelectedItem(this)">
+                <div class="details">
+                    <h4>Plain Naan</h4>
+                    <p>Soft and fluffy bread - $2.49</p>
+                </div>
+                <svg class="plus-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e74c3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </div>
+            <div class="menu-item" onclick="addSelectedItem(this)">
+                <div class="details">
+                    <h4>Garlic Naan</h4>
+                    <p>Naan with garlic topping - $2.99</p>
+                </div>
+                <svg class="plus-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e74c3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </div>
+            <div class="menu-item" onclick="addSelectedItem(this)">
+                <div class="details">
+                    <h4>Jeera Rice</h4>
+                    <p>Cumin-flavored rice - $4.49</p>
+                </div>
+                <svg class="plus-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e74c3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </div>
+            <div class="menu-item" onclick="addSelectedItem(this)">
+                <div class="details">
+                    <h4>Pulao</h4>
+                    <p>Fragrant vegetable pulao - $5.99</p>
+                </div>
+                <svg class="plus-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e74c3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </div>
+            <div class="menu-item" onclick="addSelectedItem(this)">
+                <div class="details">
+                    <h4>Roti</h4>
+                    <p>Whole wheat flatbread - $1.99</p>
+                </div>
+                <svg class="plus-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e74c3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </div>
+        </div>
+        <div class="menu-section">
+            <h3>Desserts</h3>
+            <div class="menu-item" onclick="addSelectedItem(this)">
+                <div class="details">
+                    <h4>Gulab Jamun</h4>
+                    <p>Sweet milk dumplings - $3.99</p>
+                </div>
+                <svg class="plus-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e74c3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </div>
+            <div class="menu-item" onclick="addSelectedItem(this)">
+                <div class="details">
+                    <h4>Rasmalai</h4>
+                    <p>Creamy cheese balls in milk - $4.49</p>
+                </div>
+                <svg class="plus-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e74c3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </div>
+            <div class="menu-item" onclick="addSelectedItem(this)">
+                <div class="details">
+                    <h4>Kheer</h4>
+                    <p>Rice pudding with nuts - $3.79</p>
+                </div>
+                <svg class="plus-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e74c3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </div>
+            <div class="menu-item" onclick="addSelectedItem(this)">
+                <div class="details">
+                    <h4>Fruit Custard</h4>
+                    <p>Fresh fruits in custard - $3.99</p>
+                </div>
+                <svg class="plus-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e74c3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </div>
+        </div>
+        <div class="menu-section">
+            <h3>Beverages</h3>
+            <div class="menu-item" onclick="addSelectedItem(this)">
+                <div class="details">
+                    <h4>Mango Lassi</h4>
+                    <p>Sweet mango yogurt drink - $3.49</p>
+                </div>
+                <svg class="plus-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e74c3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </div>
+            <div class="menu-item" onclick="addSelectedItem(this)">
+                <div class="details">
+                    <h4>Masala Chai</h4>
+                    <p>Spiced Indian tea - $2.49</p>
+                </div>
+                <svg class="plus-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e74c3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </div>
+            <div class="menu-item" onclick="addSelectedItem(this)">
+                <div class="details">
+                    <h4>Fresh Lime Soda</h4>
+                    <p>Refreshing lime drink - $2.99</p>
+                </div>
+                <svg class="plus-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e74c3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </div>
+            <div class="menu-item" onclick="addSelectedItem(this)">
+                <div class="details">
+                    <h4>Coconut Water</h4>
+                    <p>Fresh and natural - $3.29</p>
+                </div>
+                <svg class="plus-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e74c3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <section class="about">
+        <h2>About Royal Dining</h2>
+        <p>Welcome to Royal Dining, where simplicity meets flavor. We offer a curated selection of delicious dishes crafted with care, perfect for a quick and satisfying meal. Enjoy our seamless digital menu experience designed for your convenience.</p>
+    </section>
+
+    <section class="social-media">
+        <h2>Follow Us</h2>
+        <a href="#">@RoyalDining</a> | <a href="#">RoyalDiningOfficial</a> | <a href="#">@RoyalDining</a>
+    </section>
+
+    <section class="create-menu-btn">
+        <button onclick="window.location.href='https://subrat0.github.io/QrContact/'">Create Your Menu</button>
+    </section>
+
+    <footer>
+        <p>Created by Subrat Ghosh © 2025</p>
+    </footer>
+
+    <script>
+        const selectedItemsCard = document.getElementById('selectedItemsCard');
+        const selectedItemsContainer = document.getElementById('selectedItemsContainer');
+        const totalElement = document.getElementById('total');
+
+        let total = 0;
+
+        function addSelectedItem(itemElement) {
+            const itemName = itemElement.querySelector('h4').textContent;
+            const itemDesc = itemElement.querySelector('p').textContent;
+            const priceMatch = itemDesc.match(/\$([\d.]+)/);
+            const price = priceMatch ? parseFloat(priceMatch[1]) : 0;
+
+            let existingItem = selectedItemsContainer.querySelector(`[data-name="${itemName}"]`);
+            if (existingItem) {
+                updateQuantity(existingItem, 1);
+                return;
+            }
+
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'selected-item';
+            itemDiv.setAttribute('data-name', itemName);
+            itemDiv.innerHTML = `
+                <div class="details">
+                    <h4>${itemName}</h4>
+                    <p>${itemDesc}</p>
+                </div>
+                <div class="quantity-control">
+                    <button onclick="updateQuantity(this.parentElement.parentElement, -1)">-</button>
+                    <span>1</span>
+                    <button onclick="updateQuantity(this.parentElement.parentElement, 1)">+</button>
+                </div>
+            `;
+            selectedItemsContainer.appendChild(itemDiv);
+
+            if (selectedItemsContainer.children.length === 1) {
+                selectedItemsCard.style.display = 'block';
+            }
+
+            total += price;
+            updateTotal();
+        }
+
+        function updateQuantity(itemElement, change) {
+            let quantitySpan = itemElement.querySelector('.quantity-control span');
+            let quantity = parseInt(quantitySpan.textContent);
+            const itemDesc = itemElement.querySelector('p').textContent;
+            const priceMatch = itemDesc.match(/\$([\d.]+)/);
+            const price = priceMatch ? parseFloat(priceMatch[1]) : 0;
+
+            quantity += change;
+
+            if (quantity < 1) {
+                itemElement.remove();
+                total -= price * (change * -1);
+            } else {
+                quantitySpan.textContent = quantity;
+                total += change * price;
+            }
+
+            if (selectedItemsContainer.children.length === 0) {
+                selectedItemsCard.style.display = 'none';
+            }
+
+            updateTotal();
+        }
+
+        function updateTotal() {
+            totalElement.textContent = `Total: $${total.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
